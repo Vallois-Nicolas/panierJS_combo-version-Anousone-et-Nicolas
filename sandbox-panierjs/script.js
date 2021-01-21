@@ -54,13 +54,6 @@ basketBtnArray.forEach(function (button) {
     });
 });
 
-// la fonction permet d'écrire une ligne dans le panier
-// !!!!! attention !!!!! nous ne pouvons utiliser pas la variable "this "en paramètre de fonction
-function addToBasket(button) {
-    console.log(button.dataset.ref);
-}
-
-
 // La fonction nous permet d'écrire le contenu de la modal en fonction de l'élement : ici il s'agit du bouton
 // le paramètre button de la fonction contient tous les attributs de this (Nous avons changé le nom pour plus de praticité)
 function writeInModal(button) {
@@ -120,7 +113,7 @@ btnTriggerCart.addEventListener('click', function () {
                     <button type="button" data-target="${indexProduct}" class="addBtn btn btn-warning">+</button>
                     <input type="number" readonly id="productInput-${indexProduct}" value="${cartArray[indexProduct].quantity}">
                     <p> X <span id="priceProduct-${indexProduct}">${cartArray[indexProduct].price}</span>€ = <span class="individualTotal" id="individualTotal-${indexProduct}">${cartArray[indexProduct].price * cartArray[indexProduct].quantity}</span></p>
-                    <button type="button" data-target="${indexProduct}" class="removeBtn btn btn-danger">Supprimer</button>
+                    <button type="button" data-target="${indexProduct}" class="deleteBtn btn btn-danger">Supprimer</button>
                 </div>
             `;
         }
@@ -152,12 +145,11 @@ btnTriggerCart.addEventListener('click', function () {
             cartArray[element.dataset.target].quantity ++;
             document.getElementById('productInput-' + element.dataset.target).value ++;
             document.getElementById('individualTotal-' + element.dataset.target).innerText = document.getElementById('productInput-' + element.dataset.target).value * cartArray[element.dataset.target].price;
-            console.log(cartArray);
         })
     });
 
     // Le fonctionnement de ce bout de code est également similaire à ceux juste au-dessus, sauf que celui-ci supprime directement l'article de la modale panier
-    allDeleteButtons = [...document.getElementsByClassName('removeBtn')];
+    allDeleteButtons = [...document.getElementsByClassName('deleteBtn')];
     allDeleteButtons.forEach(element => {
         element.addEventListener('click', function() {
             cartArray[element.dataset.target].quantity = 0;
